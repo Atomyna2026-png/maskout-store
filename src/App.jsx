@@ -169,15 +169,15 @@ function PhotoLightbox({ src, title, onClose }) {
 // ─── Collection Slot ───
 function CollectionSlot({ collection, onImageClick, onNavigate }) {
   return (
-    <div className="collection-card hover-lift" style={{ position: "relative", overflow: "hidden", cursor: "pointer", background: C.bgAlt }}>
-      <div style={{ overflow: "hidden", aspectRatio: "3/4" }} onClick={() => onImageClick && onImageClick(collection)}>
+    <div className="collection-card hover-lift" style={{ position: "relative", overflow: "hidden", cursor: "pointer", background: C.bgAlt }} onClick={() => onImageClick && onImageClick(collection)}>
+      <div style={{ overflow: "hidden", aspectRatio: "3/4" }}>
         <img src={collection.img} alt={collection.title} className="img-zoom" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(40%) brightness(0.7)" }} />
       </div>
       <div className="collection-overlay" style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: 28, background: "linear-gradient(transparent 40%, rgba(0,0,0,0.65) 100%)", pointerEvents: "none" }}>
         <div style={{ fontSize: 10, letterSpacing: "0.2em", color: "#FFFFFF90", textTransform: "uppercase", fontWeight: 500, marginBottom: 8 }}>{collection.season}</div>
         <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 28, letterSpacing: "0.04em", color: C.white, marginBottom: 4 }}>{collection.title}</div>
         <div style={{ fontSize: 13, color: "#FFFFFF99", fontWeight: 300, marginBottom: 16 }}>{collection.subtitle}</div>
-        <button className="launch-badge" style={{ padding: "10px 24px", border: "1px solid #FFFFFF60", color: C.white, fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 500, alignSelf: "flex-start", transition: "all 0.3s", background: "transparent", cursor: "pointer", pointerEvents: "auto", fontFamily: "'DM Sans', sans-serif" }} onClick={() => onNavigate && onNavigate("collection-" + collection.key)}>
+        <button className="launch-badge" style={{ padding: "10px 24px", border: "1px solid #FFFFFF60", color: C.white, fontSize: 11, letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 500, alignSelf: "flex-start", transition: "all 0.3s", background: "transparent", cursor: "pointer", pointerEvents: "auto", fontFamily: "'DM Sans', sans-serif" }} onClick={(e) => { e.stopPropagation(); onNavigate && onNavigate("collection-" + collection.key); }}>
           View Collection →
         </button>
       </div>
