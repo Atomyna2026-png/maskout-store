@@ -310,7 +310,7 @@ function ProductCard({ product }) {
 
 const COLLECTIONS = [
   { id: 1, title: "SUMMER '26", subtitle: "Lightweight layers for warm days", img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=700&h=900&fit=crop", season: "SS26" },
-  { id: 2, title: "STREETCORE", subtitle: "Raw urban essentials", img: "https://i.imgur.com/TT9cXus.jpeg", season: "CORE" },
+  { id: 2, title: "STREETCORE", subtitle: "Raw urban essentials", img: "https://i.imgur.com/73vbc1m.jpeg", season: "CORE" },
   { id: 3, title: "AFTER DARK", subtitle: "Evening-ready statement pieces", img: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=700&h=900&fit=crop", season: "AW26" },
   { id: 4, title: "ESSENTIALS", subtitle: "Everyday wardrobe staples", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700&h=900&fit=crop", season: "YEAR-ROUND" },
 ];
