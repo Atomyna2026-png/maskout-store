@@ -384,7 +384,7 @@ function Footer({ onNavigate }) {
   return (
     <footer style={styles.footer}>
       <div style={styles.footerInner}>
-        <div><div style={{ ...styles.footerLogo, display: "flex", alignItems: "center", gap: 2 }}><img src={LOGO_NAV} alt="" style={{ height: 44, width: "auto", mixBlendMode: "multiply" }} /><span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: "0.04em", lineHeight: 1, marginLeft: -1 }}>ASKOUT</span></div><p style={styles.footerText}>Urban essentials for those who move different. Premium streetwear designed in Los Angeles.</p></div>
+        <div><div style={{ ...styles.footerLogo, display: "flex", alignItems: "center", gap: 2 }}><img src={LOGO_NAV} alt="" style={{ height: 44, width: "auto", mixBlendMode: "multiply" }} /><span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: "0.04em", lineHeight: 1, marginLeft: -10 }}>ASKOUT</span></div><p style={styles.footerText}>Urban essentials for those who move different. Premium streetwear designed in Los Angeles.</p></div>
         <div><div style={styles.footerColTitle}>Shop</div>{["All Products", "Tops", "Bottoms", "Accessories"].map(l => (<button key={l} style={styles.footerLink} onClick={() => onNavigate("shop")}>{l}</button>))}</div>
         <div><div style={styles.footerColTitle}>Company</div>{["About", "Contact", "Careers", "Press"].map(l => (<button key={l} style={styles.footerLink} onClick={() => onNavigate(l.toLowerCase())}>{l}</button>))}</div>
         <div><div style={styles.footerColTitle}>Follow</div>{["Instagram", "Twitter / X", "TikTok", "YouTube"].map(l => (<button key={l} style={styles.footerLink}>{l}</button>))}</div>
@@ -455,7 +455,7 @@ export default function MaskoutApp() {
           </div>
           <div style={{ ...styles.logo, transition: "all 0.3s ease" }} onClick={() => navigate("home")}>
             <img src={LOGO_NAV} alt="" style={{ height: scrolled ? 52 : 72, width: "auto", display: "block", transition: "height 0.3s ease", mixBlendMode: "multiply" }} />
-            <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: scrolled ? 38 : 52, letterSpacing: "0.04em", lineHeight: 1, marginLeft: -2, transition: "font-size 0.3s ease" }}>ASKOUT</span>
+            <span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: scrolled ? 38 : 52, letterSpacing: "0.04em", lineHeight: 1, marginLeft: -14, transition: "font-size 0.3s ease" }}>ASKOUT</span>
           </div>
           <div />
         </div>
