@@ -152,6 +152,16 @@ function useScrolled(threshold = 20) {
   return scrolled;
 }
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= breakpoint);
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth <= breakpoint);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return isMobile;
+}
+
 // ─── Photo Lightbox (Peel-In) ───
 function PhotoLightbox({ src, title, onClose }) {
   if (!src) return null;
@@ -204,9 +214,10 @@ function ProductCard({ product, onQuickView }) {
 // ─── Pages ───
 
 function HomePage({ onNavigate, onImageClick }) {
+  const mobile = useIsMobile();
   return (
     <div>
-      <div className="hero-grid" style={styles.hero}>
+      <div className="hero-grid" style={{ ...styles.hero, gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", padding: mobile ? "140px 16px 40px" : "180px 24px 80px", gap: mobile ? 32 : 60, minHeight: mobile ? "auto" : "90vh" }}>
         <div style={styles.heroText}>
           <AnimateIn animation="fadeInUp" delay={0.1} duration={0.8}><div style={{ fontSize: 12, letterSpacing: "0.2em", color: C.midGray, textTransform: "uppercase", fontWeight: 500 }}>EST. 2026</div></AnimateIn>
           <AnimateIn animation="heroText" delay={0.3} duration={0.9}><h1 className="hero-title" style={styles.heroTitle}>WEAR</h1></AnimateIn>
@@ -225,7 +236,7 @@ function HomePage({ onNavigate, onImageClick }) {
       <div style={styles.marquee}><div style={styles.marqueeInner}>{[...Array(3)].map((_, i) => (<span key={i} style={{ display: "flex", gap: 60 }}>{["STREETWEAR", "CULTURE", "COMMUNITY", "IDENTITY", "MOVEMENT", "EXPRESSION"].map(t => (<span key={t + i} style={styles.marqueeText}>{t} ✦</span>))}</span>))}</div></div>
       <div style={styles.section}>
         <AnimateIn animation="fadeInUp" delay={0}><div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 48 }}><div><h2 style={styles.sectionTitle}>UPCOMING COLLECTIONS</h2><p style={{ ...styles.sectionSub, marginBottom: 0 }}>Four distinct directions. Launching soon.</p></div><button className="btn-hover" style={{ ...styles.navLink, fontSize: 12 }} onClick={() => onNavigate("shop")}>View All →</button></div></AnimateIn>
-        <div className="collections-grid-4" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16 }}>
+        <div className="collections-grid-4" style={{ display: "grid", gridTemplateColumns: mobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 16 }}>
           {COLLECTIONS.map((c, i) => (
             <AnimateIn key={c.id} animation="peelIn" delay={i * 0.12} duration={0.7}>
               <CollectionSlot collection={c} onImageClick={onImageClick} onNavigate={onNavigate} />
@@ -233,18 +244,19 @@ function HomePage({ onNavigate, onImageClick }) {
           ))}
         </div>
       </div>
-      <div style={{ background: C.bgAlt, padding: "80px 24px" }}><div className="brand-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40, textAlign: "center" }}>{[{ num: "01", title: "PREMIUM MATERIALS", text: "Heavyweight fabrics built to last through every season." },{ num: "02", title: "DESIGNED IN-HOUSE", text: "Every piece is original. No templates, no shortcuts." },{ num: "03", title: "COMMUNITY FIRST", text: "Built by the culture, for the culture. Always." }].map((item, i) => (<AnimateIn key={item.num} animation="fadeInUp" delay={i * 0.15} duration={0.7}><div><div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 48, color: C.lightGray, marginBottom: 12 }}>{item.num}</div><div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: "0.08em", marginBottom: 8 }}>{item.title}</div><div style={{ fontSize: 13, color: C.midGray, lineHeight: 1.7, fontWeight: 300 }}>{item.text}</div></div></AnimateIn>))}</div></div>
+      <div style={{ background: C.bgAlt, padding: "80px 24px" }}><div className="brand-grid" style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: mobile ? "1fr" : "repeat(3, 1fr)", gap: 40, textAlign: "center" }}>{[{ num: "01", title: "PREMIUM MATERIALS", text: "Heavyweight fabrics built to last through every season." },{ num: "02", title: "DESIGNED IN-HOUSE", text: "Every piece is original. No templates, no shortcuts." },{ num: "03", title: "COMMUNITY FIRST", text: "Built by the culture, for the culture. Always." }].map((item, i) => (<AnimateIn key={item.num} animation="fadeInUp" delay={i * 0.15} duration={0.7}><div><div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 48, color: C.lightGray, marginBottom: 12 }}>{item.num}</div><div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 20, letterSpacing: "0.08em", marginBottom: 8 }}>{item.title}</div><div style={{ fontSize: 13, color: C.midGray, lineHeight: 1.7, fontWeight: 300 }}>{item.text}</div></div></AnimateIn>))}</div></div>
       <AnimateIn animation="fadeIn" delay={0} duration={0.8}><div style={styles.newsletter}><AnimateIn animation="fadeInUp" delay={0.1}><div style={styles.nlTitle}>JOIN THE MOVEMENT</div></AnimateIn><AnimateIn animation="fadeInUp" delay={0.2}><div style={styles.nlSub}>Early access to drops, exclusive offers, and community updates.</div></AnimateIn><AnimateIn animation="fadeInUp" delay={0.3}><div style={styles.nlForm}><input type="email" placeholder="Your email" style={styles.nlInput} /><button className="btn-hover" style={styles.nlBtn}>Subscribe</button></div></AnimateIn></div></AnimateIn>
     </div>
   );
 }
 
 function ShopPage({ onImageClick, onNavigate }) {
+  const mobile = useIsMobile();
   return (
-    <div style={{ ...styles.section, paddingTop: 180 }}>
+    <div style={{ ...styles.section, paddingTop: mobile ? 140 : 180 }}>
       <AnimateIn animation="fadeInUp"><h2 style={styles.sectionTitle}>COLLECTIONS</h2></AnimateIn>
       <AnimateIn animation="fadeInUp" delay={0.1}><p style={styles.sectionSub}>Explore our upcoming drops — four distinct directions, one identity.</p></AnimateIn>
-      <div className="collections-grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}>
+      <div className="collections-grid-2" style={{ display: "grid", gridTemplateColumns: mobile ? "1fr" : "repeat(2, 1fr)", gap: 20 }}>
         {COLLECTIONS.map((c, i) => (
           <AnimateIn key={c.id} animation="peelIn" delay={i * 0.1} duration={0.6}>
             <CollectionSlot collection={c} onImageClick={onImageClick} onNavigate={onNavigate} />
@@ -256,6 +268,7 @@ function ShopPage({ onImageClick, onNavigate }) {
 }
 
 function CollectionPage({ collectionKey, onNavigate, onQuickView }) {
+  const mobile = useIsMobile();
   const collection = COLLECTIONS.find(c => c.key === collectionKey);
   const products = PRODUCTS.filter(p => p.collection === collectionKey);
   if (!collection) return null;
@@ -291,11 +304,12 @@ function CollectionPage({ collectionKey, onNavigate, onQuickView }) {
 }
 
 function AboutPage() {
+  const mobile = useIsMobile();
   return (
-    <div style={{ ...styles.section, paddingTop: 180 }}>
+    <div style={{ ...styles.section, paddingTop: mobile ? 140 : 180 }}>
       <AnimateIn animation="fadeInUp"><h2 style={styles.sectionTitle}>OUR STORY</h2></AnimateIn>
       <AnimateIn animation="fadeInUp" delay={0.1}><p style={styles.sectionSub}>The culture behind the clothes.</p></AnimateIn>
-      <div className="about-grid" style={styles.aboutGrid}>
+      <div className="about-grid" style={{ ...styles.aboutGrid, gridTemplateColumns: mobile ? "1fr" : "1fr 1fr" }}>
         <AnimateIn animation="slideInLeft" duration={0.9}><img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?w=700&h=900&fit=crop" alt="Maskout studio" style={styles.aboutImg} className="img-zoom" /></AnimateIn>
         <div>
           <AnimateIn animation="fadeInUp" delay={0.2}><p style={styles.aboutText}>Maskout was born from the streets — a response to mass-produced fashion that says nothing. We believe what you wear should speak before you do.</p></AnimateIn>
@@ -310,11 +324,12 @@ function AboutPage() {
 
 function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
+  const mobile = useIsMobile();
   return (
-    <div style={{ ...styles.section, paddingTop: 180 }}>
+    <div style={{ ...styles.section, paddingTop: mobile ? 140 : 180 }}>
       <AnimateIn animation="fadeInUp"><h2 style={styles.sectionTitle}>GET IN TOUCH</h2></AnimateIn>
       <AnimateIn animation="fadeInUp" delay={0.1}><p style={styles.sectionSub}>Questions, wholesale inquiries, or just want to connect — we're here.</p></AnimateIn>
-      <div className="contact-grid" style={styles.contactGrid}>
+      <div className="contact-grid" style={{ ...styles.contactGrid, gridTemplateColumns: mobile ? "1fr" : "1fr 1fr" }}>
         <AnimateIn animation="slideInLeft" delay={0.2} duration={0.8}>
         <div>
           {submitted ? (<div style={{ padding: "60px 0", textAlign: "center", animation: "scaleIn 0.5s ease both" }}><div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, marginBottom: 12 }}>MESSAGE SENT ✓</div><p style={{ color: C.midGray, fontSize: 14 }}>We'll get back to you within 24 hours.</p></div>) : (<>
@@ -338,11 +353,12 @@ function ContactPage() {
 function QuickViewModal({ product, onClose, onAddToCart }) {
   const [selectedSize, setSelectedSize] = useState(null);
   const [added, setAdded] = useState(false);
+  const mobile = useIsMobile();
   if (!product) return null;
   const handleAdd = () => { if (!selectedSize) return; onAddToCart({ ...product, size: selectedSize }); setAdded(true); setTimeout(() => { setAdded(false); onClose(); }, 800); };
   return (
     <div style={styles.modalOverlay} onClick={onClose}>
-      <div className="modal-grid" style={{ ...styles.modal, animation: "peelIn 0.5s cubic-bezier(0.16,1,0.3,1) both" }} onClick={e => e.stopPropagation()}>
+      <div className="modal-grid" style={{ ...styles.modal, gridTemplateColumns: mobile ? "1fr" : "1fr 1fr", animation: "peelIn 0.5s cubic-bezier(0.16,1,0.3,1) both" }} onClick={e => e.stopPropagation()}>
         <img src={product.img} alt={product.name} style={styles.modalImg} />
         <div style={styles.modalContent}>
           <div style={styles.modalName}>{product.name}</div>
@@ -372,9 +388,10 @@ function CartDrawer({ open, onClose, items, onRemove }) {
 
 // ─── Footer ───
 function Footer({ onNavigate }) {
+  const mobile = useIsMobile();
   return (
     <footer style={styles.footer}>
-      <div className="footer-grid" style={styles.footerInner}>
+      <div className="footer-grid" style={{ ...styles.footerInner, gridTemplateColumns: mobile ? "1fr 1fr" : "2fr 1fr 1fr 1fr" }}>
         <div><div style={{ ...styles.footerLogo, display: "flex", alignItems: "center", gap: 2 }}><img src={LOGO_NAV} alt="" style={{ height: 44, width: "auto", mixBlendMode: "multiply" }} /><span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: "0.04em", lineHeight: 1, marginLeft: -10 }}>ASKOUT</span></div><p style={styles.footerText}>Urban essentials for those who move different. Premium streetwear designed in Los Angeles.</p></div>
         <div><div style={styles.footerColTitle}>Shop</div>{["All Products", "Tops", "Bottoms", "Accessories"].map(l => (<button key={l} style={styles.footerLink} onClick={() => onNavigate("shop")}>{l}</button>))}</div>
         <div><div style={styles.footerColTitle}>Company</div>{["About", "Contact", "Careers", "Press"].map(l => (<button key={l} style={styles.footerLink} onClick={() => onNavigate(l.toLowerCase())}>{l}</button>))}</div>
@@ -393,6 +410,7 @@ export default function MaskoutApp() {
   const [quickView, setQuickView] = useState(null);
   const [lightbox, setLightbox] = useState(null);
   const scrolled = useScrolled(30);
+  const mobile = useIsMobile();
 
   useEffect(() => {
     if (!document.getElementById("maskout-fonts")) { const link = document.createElement("link"); link.id = "maskout-fonts"; link.rel = "stylesheet"; link.href = FONTS_URL; document.head.appendChild(link); }
@@ -452,7 +470,7 @@ export default function MaskoutApp() {
   return (
     <div style={styles.app}>
       <nav style={{ ...styles.nav, boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.06)" : "none", transition: "box-shadow 0.3s ease, padding 0.3s ease" }}>
-        <div className="nav-inner" style={{ ...styles.navInner, padding: scrolled ? "10px 24px" : "18px 24px", transition: "padding 0.3s ease" }}>
+        <div className="nav-inner" style={{ ...styles.navInner, gridTemplateColumns: mobile ? "1fr 1fr" : "1fr 1fr 1fr", padding: scrolled ? (mobile ? "8px 16px" : "10px 24px") : (mobile ? "12px 16px" : "18px 24px"), transition: "padding 0.3s ease" }}>
           <div style={styles.navLinks}>
             {[["home", "Home"], ["shop", "Shop"], ["about", "About"], ["contact", "Contact"]].map(([key, label]) => (
               <button key={key} className="nav-link-hover" style={{ ...styles.navLink, color: page === key ? C.black : C.darkGray, fontWeight: page === key ? 700 : 500 }} onClick={() => navigate(key)}>{label}</button>
