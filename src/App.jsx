@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 const FONTS_URL = "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap";
 
 // ─── Logo Assets ───
-const LOGO_NAV = "https://i.imgur.com/0TTxPVq.jpeg";
+const LOGO_NAV = "/logo.JPG";
 const LOGO_HERO = LOGO_NAV;
 
 // ─── Color Tokens ───
