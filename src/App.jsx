@@ -342,7 +342,7 @@ function ContactPage() {
         </div>
         </AnimateIn>
         <AnimateIn animation="slideInRight" delay={0.3} duration={0.8}>
-        <div style={styles.contactInfo}>{[{ label: "Email", value: "hello@maskout.com" },{ label: "Instagram", value: "Maskout.club" },{ label: "Location", value: "Los Angeles, CA" },{ label: "Hours", value: "Mon – Fri, 10am – 6pm PST" }].map((c) => (<div key={c.label} style={styles.contactItem}><div style={styles.contactLabel}>{c.label}</div><div style={styles.contactVal}>{c.value}</div></div>))}</div>
+        <div style={styles.contactInfo}>{[{ label: "Email", value: "hello@maskout.com", link: "mailto:hello@maskout.com" },{ label: "Instagram", value: "Maskout.club", link: "https://instagram.com/maskout.club" },{ label: "Location", value: "Los Angeles, CA" },{ label: "Hours", value: "Mon – Fri, 10am – 6pm PST" }].map((c) => (<div key={c.label} style={styles.contactItem}><div style={styles.contactLabel}>{c.label}</div>{c.link ? <a href={c.link} target="_blank" rel="noopener noreferrer" style={{ ...styles.contactVal, textDecoration: "none", borderBottom: `1px solid ${C.lightGray}` }}>{c.value}</a> : <div style={styles.contactVal}>{c.value}</div>}</div>))}</div>
         </AnimateIn>
       </div>
     </div>
@@ -395,7 +395,7 @@ function Footer({ onNavigate }) {
         <div><div style={{ ...styles.footerLogo, display: "flex", alignItems: "center", gap: 2 }}><img src={LOGO_NAV} alt="" style={{ height: 44, width: "auto", mixBlendMode: "multiply" }} /><span style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: 32, letterSpacing: "0.04em", lineHeight: 1, marginLeft: -10 }}>ASKOUT</span></div><p style={styles.footerText}>Urban essentials for those who move different. Premium streetwear designed in Los Angeles.</p></div>
         <div><div style={styles.footerColTitle}>Shop</div>{["All Products", "Tops", "Bottoms", "Accessories"].map(l => (<button key={l} style={styles.footerLink} onClick={() => onNavigate("shop")}>{l}</button>))}</div>
         <div><div style={styles.footerColTitle}>Company</div>{["About", "Contact", "Careers", "Press"].map(l => (<button key={l} style={styles.footerLink} onClick={() => onNavigate(l.toLowerCase())}>{l}</button>))}</div>
-        <div><div style={styles.footerColTitle}>Follow</div>{["Maskout.club", "Twitter / X", "TikTok", "YouTube"].map(l => (<button key={l} style={styles.footerLink}>{l}</button>))}</div>
+        <div><div style={styles.footerColTitle}>Follow</div>{[{label: "Maskout.club", url: "https://instagram.com/maskout.club"}, {label: "Twitter / X", url: "#"}, {label: "TikTok", url: "#"}, {label: "YouTube", url: "#"}].map(l => (<a key={l.label} href={l.url} target="_blank" rel="noopener noreferrer" style={{ ...styles.footerLink, textDecoration: "none" }}>{l.label}</a>))}</div>
       </div>
       <div style={styles.footerBottom}><span>© 2026 Maskout. All rights reserved.</span><span>Privacy · Terms</span></div>
     </footer>
