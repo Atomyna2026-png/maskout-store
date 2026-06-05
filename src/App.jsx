@@ -23,7 +23,7 @@ const PRODUCTS = [];
 
 // ─── Collections Data ───
 const COLLECTIONS = [
-  { id: 1, key: "summer26", title: "SUMMER '26", subtitle: "Lightweight layers for warm days", img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=700&h=900&fit=crop", season: "SS26" },
+  { id: 1, key: "summer26", title: "SUMMER '26", subtitle: "Lightweight layers for warm days", img: "/summer.PNG", season: "SS26" },
   { id: 2, key: "streetcore", title: "STREETCORE", subtitle: "Raw urban essentials", img: "/streetcore.jpeg", season: "CORE" },
   { id: 3, key: "afterdark", title: "AFTER DARK", subtitle: "Evening-ready statement pieces", img: "https://images.unsplash.com/photo-1516762689617-e1cffcef479d?w=700&h=900&fit=crop", season: "AW26" },
   { id: 4, key: "essentials", title: "ESSENTIALS", subtitle: "Everyday wardrobe staples", img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=700&h=900&fit=crop", season: "YEAR-ROUND" },
